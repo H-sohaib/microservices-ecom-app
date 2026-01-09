@@ -1,6 +1,6 @@
 import keycloak from './keycloak';
 
-const API_BASE_URL = 'http://localhost:8083';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8083';
 
 // Types based on OpenAPI specs
 export interface ProductRequest {
@@ -272,7 +272,7 @@ export const userApi = {
 // Public registration API (no auth required)
 export const authApi = {
   register: (user: CreateUserRequest) =>
-    fetch(`http://localhost:8083/api/auth/register`, {
+    fetch(`${API_BASE_URL}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),

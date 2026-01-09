@@ -1,0 +1,21 @@
+# Docker Ignore - Root level
+.git
+.gitignore
+*.md
+.idea/
+*.iml
+
+# Service specific
+*/target/
+*/.mvn/
+*/mvnw
+*/mvnw.cmd
+
+# Frontend specific
+trustmart-frontend/node_modules/
+trustmart-frontend/dist/
+
+# Scripts
+scripts/__pycache__/
+scripts/*.pyc
+
