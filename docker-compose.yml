@@ -63,18 +63,22 @@ services:
     container_name: trustmart-gateway
     ports:
       - "8083:8083"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
-      # Use host.docker.internal for Keycloak since frontend needs to access it from browser
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://host.docker.internal:8080/realms/trustmart
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://keycloak:8080/realms/trustmart/protocol/openid-connect/certs
-      - KEYCLOAK_AUTH_SERVER_URL=http://keycloak:8080
+      # JWT issuer must match what the browser sees (localhost:8080)
+      # JWK set URI uses keycloak hostname for internal Docker network resolution
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8080/realms/trustmart
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://host.docker.internal:8080/realms/trustmart/protocol/openid-connect/certs
+      - KEYCLOAK_AUTH_SERVER_URL=http://host.docker.internal:8080
       - KEYCLOAK_REALM=trustmart
       - KEYCLOAK_ADMIN_USERNAME=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - GATEWAY_SECRET=TrustMartGatewaySecretKey2024
-      - SPRING_CLOUD_GATEWAY_GLOBALCORS_CORS_CONFIGURATIONS_[/**]_ALLOWEDORIGINS=http://localhost:8084,http://frontend:80
+      # CORS Configuration - allow frontend access
+      - CORS_ALLOWED_ORIGINS=http://localhost:8084,http://127.0.0.1:8084,http://frontend:80
     depends_on:
       discovery-service:
         condition: service_healthy
@@ -107,6 +111,12 @@ services:
         condition: service_healthy
     networks:
       - trustmart-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8081/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
     restart: unless-stopped
 
   # ===========================================
@@ -132,9 +142,15 @@ services:
       mysql:
         condition: service_healthy
       product-service:
-        condition: service_started
+        condition: service_healthy
     networks:
       - trustmart-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8082/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
     restart: unless-stopped
 
   # ===========================================
@@ -148,7 +164,12 @@ services:
     ports:
       - "8084:80"
     depends_on:
-      - gateway-service
+      gateway-service:
+        condition: service_started
+      product-service:
+        condition: service_healthy
+      command-service:
+        condition: service_healthy
     networks:
       - trustmart-network
     restart: unless-stopped

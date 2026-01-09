@@ -32,10 +32,12 @@ public class SecurityConfig {
                 .authorizeExchange(exchanges -> exchanges
                         // Public endpoints - anyone can access
                         .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .pathMatchers(HttpMethod.GET, "/api/products").permitAll()
                         .pathMatchers(HttpMethod.GET, "/api/products/**").permitAll()
                         .pathMatchers("/api/auth/**").permitAll() // Public registration
 
                         // Product management - ADMIN only
+                        .pathMatchers(HttpMethod.POST, "/api/products").hasRole("ADMIN")
                         .pathMatchers(HttpMethod.POST, "/api/products/**").hasRole("ADMIN")
                         .pathMatchers(HttpMethod.PUT, "/api/products/**").hasRole("ADMIN")
                         .pathMatchers(HttpMethod.DELETE, "/api/products/**").hasRole("ADMIN")

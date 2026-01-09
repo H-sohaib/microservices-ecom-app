@@ -30,11 +30,13 @@ import json
 # =============================================================================
 
 # Database configuration
+# For Docker container: port 3307, user root, password root
+# For local MySQL: port 3306, adjust credentials as needed
 DB_CONFIG = {
     'host': 'localhost',
-    'port': 3306,
+    'port': 3307,  # Docker MySQL container port (3307 maps to 3306 inside container)
     'user': 'root',
-    'password': ''  # Update if your MySQL has a password
+    'password': 'root'
 }
 
 # Keycloak configuration
@@ -133,7 +135,7 @@ NEW_USERS = [
         'email': 'john.doe@example.com',
         'firstName': 'John',
         'lastName': 'Doe',
-        'password': 'password123'
+        'password': 'anass'
     },
     {
         'username': 'jane_smith',
