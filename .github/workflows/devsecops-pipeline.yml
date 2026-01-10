@@ -289,17 +289,17 @@ jobs:
 
       - name: Generate Security Summary
         run: |
-          echo "# 🔒 Security Scan Summary" >> $GITHUB_STEP_SUMMARY
+          echo "# Security Scan Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## Pipeline Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| SonarQube Analysis | ${{ needs.sonarqube-analysis.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| OWASP Dependency Check | ${{ needs.dependency-check.result == 'success' && '✅ Passed' || '⚠️ Review Required' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Container Security (Trivy) | ${{ needs.container-security.result == 'success' && '✅ Passed' || '⚠️ Review Required' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| SonarQube Analysis | ${{ needs.sonarqube-analysis.result == 'success' && 'Passed' || 'Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| OWASP Dependency Check | ${{ needs.dependency-check.result == 'success' && 'Passed' || 'Review Required' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Container Security (Trivy) | ${{ needs.container-security.result == 'success' && 'Passed' || 'Review Required' }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## 📁 Reports Available" >> $GITHUB_STEP_SUMMARY
+          echo "## Reports Available" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- OWASP Dependency Check Report (HTML)" >> $GITHUB_STEP_SUMMARY
           echo "- Trivy Container Scan Reports (TXT and JSON, per service)" >> $GITHUB_STEP_SUMMARY
