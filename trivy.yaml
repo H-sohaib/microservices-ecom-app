@@ -33,9 +33,9 @@ db:
 
 # What to scan in images
 security-checks:
-  - vuln       # OS packages and application dependencies
-  - secret     # Hardcoded secrets
-  - config     # Misconfigurations
+  - vuln # OS packages and application dependencies
+  - secret # Hardcoded secrets
+  - config # Misconfigurations
 
 # Ignore specific files/directories
 skip-files: []
@@ -51,4 +51,3 @@ license:
     - MIT
     - Apache-2.0
     - BSD-3-Clause
-

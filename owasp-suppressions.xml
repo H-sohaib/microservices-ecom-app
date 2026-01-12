@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
-    <!--
+  <!--
     OWASP Dependency Check Suppressions File
     =========================================
 
@@ -20,9 +20,9 @@
     IMPORTANT: Review this file regularly and remove suppressions when fixes are available!
     -->
 
-    <!-- Example suppressions (uncomment and modify as needed) -->
+  <!-- Example suppressions (uncomment and modify as needed) -->
 
-    <!--
+  <!--
     <suppress>
         <notes><![CDATA[
         This is a false positive. The vulnerability applies to the server-side component,
@@ -30,11 +30,11 @@
         Reviewed by: [Your Name]
         Date: 2026-01-10
         ]]></notes>
-        <cve>CVE-2021-XXXXX</cve>
-    </suppress>
+<cve>CVE-2021-XXXXX</cve>
+</suppress>
     -->
 
-    <!--
+  <!--
     <suppress>
         <notes><![CDATA[
         Suppressing all vulnerabilities for test-only dependency.
@@ -42,22 +42,22 @@
         Reviewed by: [Your Name]
         Date: 2026-01-10
         ]]></notes>
-        <gav regex="true">.*:h2:.*</gav>
-    </suppress>
+<gav regex="true">.*:h2:.*</gav>
+</suppress>
     -->
 
-    <!--
+  <!--
     Suppress false positives for Spring Framework that are often misidentified.
     These are typically not applicable when using the latest Spring Boot version.
     -->
-    <!--
+  <!--
     <suppress>
         <notes><![CDATA[
         Spring Boot manages these dependencies and applies security patches.
         Using Spring Boot 3.4.x which includes fixes.
         ]]></notes>
-        <cpe>cpe:/a:pivotal_software:spring_framework</cpe>
-    </suppress>
+<cpe>cpe:/a:pivotal_software:spring_framework</cpe>
+</suppress>
     -->
 
 </suppressions>
