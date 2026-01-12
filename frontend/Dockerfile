@@ -14,20 +14,18 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Production stage
-FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
+# Production stage - Use Node.js with serve
+FROM node:20-alpine
+WORKDIR /app
 
-# Remove default nginx static assets
-RUN rm -rf ./*
+# Install serve globally
+RUN npm install -g serve
 
 # Copy built assets from build stage
-COPY --from=build /app/dist .
+COPY --from=build /app/dist ./dist
 
-# Copy nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Expose port 3000 (default for serve)
+EXPOSE 3000
 
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
-
+# Serve the static files
+CMD ["serve", "-s", "dist", "-l", "3000"]

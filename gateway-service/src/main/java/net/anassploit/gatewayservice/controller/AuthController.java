@@ -15,23 +15,22 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
+  private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
-    private final KeycloakUserService keycloakUserService;
+  private final KeycloakUserService keycloakUserService;
 
-    public AuthController(KeycloakUserService keycloakUserService) {
-        this.keycloakUserService = keycloakUserService;
-    }
+  public AuthController(KeycloakUserService keycloakUserService) {
+    this.keycloakUserService = keycloakUserService;
+  }
 
-    @PostMapping("/register")
-    public Mono<ResponseEntity<UserResponse>> register(@Valid @RequestBody CreateUserRequest request) {
-        log.info("Received registration request for user: {}", request.getUsername());
-        return keycloakUserService.createUser(request, true)
-                .map(user -> ResponseEntity.status(HttpStatus.CREATED).body(user))
-                .onErrorResume(e -> {
-                    log.error("Error registering user: {}", e.getMessage());
-                    return Mono.just(ResponseEntity.badRequest().build());
-                });
-    }
+  @PostMapping("/register")
+  public Mono<ResponseEntity<UserResponse>> register(@Valid @RequestBody CreateUserRequest request) {
+    log.info("Received registration request for user: {}", request.getUsername());
+    return keycloakUserService.createUser(request, true)
+        .map(user -> ResponseEntity.status(HttpStatus.CREATED).body(user))
+        .onErrorResume(e -> {
+          log.error("Error registering user: {}", e.getMessage());
+          return Mono.just(ResponseEntity.badRequest().build());
+        });
+  }
 }
-

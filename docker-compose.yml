@@ -2,11 +2,11 @@ services:
   # DATABASE
   mysql:
     image: mysql:8.0
-    container_name: trustmart-mysql
+    container_name: ecommerce-mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: trustmart
-      MYSQL_PASSWORD: trustmart
+      MYSQL_USER: ecommerce
+      MYSQL_PASSWORD: ecommerce
     ports:
       - "3307:3306"
     volumes:
@@ -27,7 +27,7 @@ services:
     build:
       context: ./discovery-service
       dockerfile: Dockerfile
-    container_name: trustmart-discovery
+    container_name: ecommerce-discovery
     ports:
       - "8761:8761"
     environment:
@@ -53,21 +53,20 @@ services:
     build:
       context: ./gateway-service
       dockerfile: Dockerfile
-    container_name: trustmart-gateway
+    container_name: ecommerce-gateway
     ports:
       - "8083:8083"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
       # Use localhost since Keycloak is running separately on host
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8080/realms/trustmart
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://host.docker.internal:8080/realms/trustmart/protocol/openid-connect/certs
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8080/realms/ecommerce
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://host.docker.internal:8080/realms/ecommerce/protocol/openid-connect/certs
       - KEYCLOAK_AUTH_SERVER_URL=http://host.docker.internal:8080
-      - KEYCLOAK_REALM=trustmart
+      - KEYCLOAK_REALM=ecommerce
       - KEYCLOAK_ADMIN_USERNAME=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
-      - GATEWAY_SECRET=TrustMartGatewaySecretKey2024
-      - CORS_ALLOWED_ORIGINS=http://localhost:8084,http://127.0.0.1:8084,http://frontend:80
+      - GATEWAY_SECRET=ecommerceGatewaySecretKey2024
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
@@ -82,7 +81,7 @@ services:
     build:
       context: ./product-service
       dockerfile: Dockerfile
-    container_name: trustmart-product
+    container_name: ecommerce-product
     ports:
       - "8081:8081"
     environment:
@@ -91,9 +90,9 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/productdb?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
-      - GATEWAY_SECRET=TrustMartGatewaySecretKey2024
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8080/realms/trustmart
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://host.docker.internal:8080/realms/trustmart/protocol/openid-connect/certs
+      - GATEWAY_SECRET=ecommerceGatewaySecretKey2024
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8080/realms/ecommerce
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://host.docker.internal:8080/realms/ecommerce/protocol/openid-connect/certs
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
@@ -123,7 +122,7 @@ services:
     build:
       context: ./command-service
       dockerfile: Dockerfile
-    container_name: trustmart-command
+    container_name: ecommerce-command
     ports:
       - "8082:8082"
     environment:
@@ -132,9 +131,9 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/commanddb?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
-      - GATEWAY_SECRET=TrustMartGatewaySecretKey2024
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8080/realms/trustmart
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://host.docker.internal:8080/realms/trustmart/protocol/openid-connect/certs
+      - GATEWAY_SECRET=ecommerceGatewaySecretKey2024
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8080/realms/ecommerce
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://host.docker.internal:8080/realms/ecommerce/protocol/openid-connect/certs
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
@@ -168,7 +167,7 @@ services:
       dockerfile: Dockerfile
     container_name: frontend
     ports:
-      - "8084:80"
+      - "8084:3000"
     depends_on:
       gateway-service:
         condition: service_started

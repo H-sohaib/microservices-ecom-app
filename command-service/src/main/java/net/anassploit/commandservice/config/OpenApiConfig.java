@@ -8,13 +8,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenApiConfig {
 
-    @Bean
-    public OpenAPI commandServiceOpenAPI() {
-        return new OpenAPI()
-                .info(new Info()
-                        .title("Command Service API")
-                        .version("1.0.0")
-                        .description("REST API for managing orders/commands in the e-commerce application"));
-    }
+  @Bean
+  public OpenAPI commandServiceOpenAPI() {
+    return new OpenAPI()
+        .info(new Info()
+            .title("Command Service API")
+            .version("1.0.0")
+            .description("REST API for managing orders/commands in the e-commerce application"));
+  }
 }
-

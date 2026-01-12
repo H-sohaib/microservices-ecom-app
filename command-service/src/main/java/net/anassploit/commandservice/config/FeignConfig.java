@@ -9,12 +9,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FeignConfig {
 
-    @Value("${gateway.secret:TrustMartGatewaySecretKey2024}")
-    private String gatewaySecret;
+  @Value("${gateway.secret:TrustMartGatewaySecretKey2024}")
+  private String gatewaySecret;
 
-    @Bean
-    public RequestInterceptor gatewaySecretInterceptor() {
-        return template -> template.header("X-Gateway-Secret", gatewaySecret);
-    }
+  @Bean
+  public RequestInterceptor gatewaySecretInterceptor() {
+    return template -> template.header("X-Gateway-Secret", gatewaySecret);
+  }
 }
-
