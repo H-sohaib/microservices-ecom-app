@@ -913,8 +913,8 @@ All services expose health endpoints via Spring Actuator:
 The following screenshots demonstrate the key features and interfaces of the ecom application.
 
 ### Welcome Page
+<img width="1918" height="962" alt="image" src="https://github.com/user-attachments/assets/4fb05867-9094-4cac-9fb5-cfdbda07181e" />
 
-![Welcome Page](docs/welcome_page.png)
 
 The landing page of the ecom application displaying the main navigation and welcome message. Users can navigate to products, their cart, or login to access more features.
 
@@ -929,7 +929,6 @@ The Keycloak-powered login page where users authenticate using their credentials
 ---
 
 ### Products List
-
 ![Products List](docs/products_list.png)
 
 The product catalog page showing all available products with their names, descriptions, prices, and stock quantities. Administrators can add, edit, or delete products from this view.
@@ -937,7 +936,6 @@ The product catalog page showing all available products with their names, descri
 ---
 
 ### Adding a Product
-
 ![Adding Product](docs/adding_product.png)
 
 The product creation form accessible to administrators. Allows entering product name, description, price, and initial stock quantity with validation.
@@ -945,7 +943,6 @@ The product creation form accessible to administrators. Allows entering product 
 ---
 
 ### Editing a Product
-
 ![Editing Product](docs/editing_product.png)
 
 The product edit modal pre-populated with existing product data. Administrators can modify any product attributes and save changes.
@@ -953,7 +950,6 @@ The product edit modal pre-populated with existing product data. Administrators 
 ---
 
 ### Deleting a Product
-
 ![Deleting Product](docs/deleting_product.png)
 
 Confirmation dialog when deleting a product. Ensures accidental deletions are prevented with a clear confirmation message.
@@ -961,7 +957,6 @@ Confirmation dialog when deleting a product. Ensures accidental deletions are pr
 ---
 
 ### Shopping Cart
-
 ![Shopping Cart](docs/cart.png)
 
 The shopping cart interface showing selected products, quantities, unit prices, and total amount. Users can adjust quantities or remove items before proceeding to checkout.
@@ -969,7 +964,6 @@ The shopping cart interface showing selected products, quantities, unit prices, 
 ---
 
 ### Making a New Order
-
 ![Making New Order](docs/making_new_order.png)
 
 The order placement interface where users can review their cart contents and confirm the order. Shows order summary with all items and total amount.
@@ -977,7 +971,6 @@ The order placement interface where users can review their cart contents and con
 ---
 
 ### Client Orders List
-
 ![Client Orders List](docs/client_orders_list.png)
 
 The order history view for clients showing their personal orders with status, date, items, and total amount. Clients can only see their own orders.
@@ -985,7 +978,6 @@ The order history view for clients showing their personal orders with status, da
 ---
 
 ### Client Canceling Order
-
 ![Client Canceling Order](docs/client_canceling_order.png)
 
 The order cancellation confirmation dialog. Clients can cancel their pending orders, which triggers stock restoration.
@@ -993,7 +985,6 @@ The order cancellation confirmation dialog. Clients can cancel their pending ord
 ---
 
 ### List of Orders (Admin View)
-
 ![List of Orders](docs/list_of_orders.png)
 
 The administrative view of all orders in the system. Shows all orders from all users with filtering options by status.
@@ -1001,7 +992,6 @@ The administrative view of all orders in the system. Shows all orders from all u
 ---
 
 ### Changing Order Status
-
 ![Changing Order Status](docs/changing_product_status.png)
 
 The order status management interface for administrators. Allows updating order status through the valid workflow (PENDING to CONFIRMED to PROCESSING to SHIPPED to DELIVERED).
@@ -1009,7 +999,6 @@ The order status management interface for administrators. Allows updating order 
 ---
 
 ### List of Clients
-
 ![List of Clients](docs/list_of_clients.png)
 
 The user management interface showing all registered client users. Displays username, email, name, and account status.
@@ -1017,7 +1006,6 @@ The user management interface showing all registered client users. Displays user
 ---
 
 ### Delete Client
-
 ![Delete Client](docs/delete_client.png)
 
 Confirmation dialog when deleting a client account. Administrators can remove user accounts from the system.
