@@ -1,4 +1,4 @@
-# TrustMart - Microservices E-Commerce Application
+# E-Commerce - Microservices E-Commerce Application
 
 A comprehensive e-commerce platform built using microservices architecture with Spring Boot, React, Keycloak authentication, and a complete DevSecOps pipeline.
 
@@ -29,7 +29,7 @@ A comprehensive e-commerce platform built using microservices architecture with 
 
 ## Project Overview
 
-TrustMart is a full-featured e-commerce application designed with microservices architecture principles. The system allows administrators to manage products and orders while clients can browse products, add them to cart, and place orders.
+E-Commerce is a full-featured e-commerce application designed with microservices architecture principles. The system allows administrators to manage products and orders while clients can browse products, add them to cart, and place orders.
 
 ### Key Features
 
@@ -330,45 +330,49 @@ sequenceDiagram
 ## Technology Stack
 
 ### Backend
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| Java | 21 | Programming language |
-| Spring Boot | 3.4.1 | Application framework |
-| Spring Cloud | 2024.0.0 | Microservices infrastructure |
-| Spring Cloud Gateway | - | API Gateway |
-| Spring Cloud Netflix Eureka | - | Service Discovery |
-| Spring Security OAuth2 | - | Security and authentication |
-| Spring Data JPA | - | Data persistence |
-| OpenFeign | - | Declarative REST client |
-| MySQL | 8.0 | Relational database |
-| Keycloak | Latest | Identity and Access Management |
+
+| Technology                  | Version  | Purpose                        |
+| --------------------------- | -------- | ------------------------------ |
+| Java                        | 21       | Programming language           |
+| Spring Boot                 | 3.4.1    | Application framework          |
+| Spring Cloud                | 2024.0.0 | Microservices infrastructure   |
+| Spring Cloud Gateway        | -        | API Gateway                    |
+| Spring Cloud Netflix Eureka | -        | Service Discovery              |
+| Spring Security OAuth2      | -        | Security and authentication    |
+| Spring Data JPA             | -        | Data persistence               |
+| OpenFeign                   | -        | Declarative REST client        |
+| MySQL                       | 8.0      | Relational database            |
+| Keycloak                    | Latest   | Identity and Access Management |
 
 ### Frontend
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| React | 18 | UI library |
-| TypeScript | - | Type-safe JavaScript |
-| Vite | - | Build tool |
-| Tailwind CSS | - | Styling |
-| React Query | - | Data fetching and caching |
-| React Router | - | Client-side routing |
-| Keycloak JS | - | Authentication client |
+
+| Technology   | Version | Purpose                   |
+| ------------ | ------- | ------------------------- |
+| React        | 18      | UI library                |
+| TypeScript   | -       | Type-safe JavaScript      |
+| Vite         | -       | Build tool                |
+| Tailwind CSS | -       | Styling                   |
+| React Query  | -       | Data fetching and caching |
+| React Router | -       | Client-side routing       |
+| Keycloak JS  | -       | Authentication client     |
 
 ### DevOps
-| Technology | Purpose |
-|------------|---------|
-| Docker | Containerization |
-| Docker Compose | Multi-container orchestration |
-| GitHub Actions | CI/CD pipeline |
-| SonarQube | Code quality analysis |
+
+| Technology             | Purpose                           |
+| ---------------------- | --------------------------------- |
+| Docker                 | Containerization                  |
+| Docker Compose         | Multi-container orchestration     |
+| GitHub Actions         | CI/CD pipeline                    |
+| SonarQube              | Code quality analysis             |
 | OWASP Dependency Check | Dependency vulnerability scanning |
-| Trivy | Container security scanning |
+| Trivy                  | Container security scanning       |
 
 ---
 
 ## Services Description
 
 ### 1. Discovery Service (Eureka Server)
+
 - **Port**: 8761
 - **Purpose**: Service registry for dynamic service discovery
 - **Features**:
@@ -377,6 +381,7 @@ sequenceDiagram
   - Failover handling
 
 ### 2. Gateway Service
+
 - **Port**: 8083
 - **Purpose**: API Gateway and security enforcement
 - **Features**:
@@ -387,6 +392,7 @@ sequenceDiagram
   - Request/response logging
 
 ### 3. Product Service
+
 - **Port**: 8081
 - **Purpose**: Product catalog management
 - **Features**:
@@ -395,6 +401,7 @@ sequenceDiagram
   - Stock availability checks
 
 ### 4. Command Service
+
 - **Port**: 8082
 - **Purpose**: Order management
 - **Features**:
@@ -404,6 +411,7 @@ sequenceDiagram
   - User-specific order filtering
 
 ### 5. Frontend
+
 - **Port**: 8084
 - **Purpose**: User interface
 - **Features**:
@@ -443,10 +451,10 @@ Before starting the application, you need to have Keycloak configured:
 
 If you already have Keycloak running:
 
-1. Create a realm named `trustmart`
+1. Create a realm named `ecommerce`
 2. Create two client applications:
-   - `trustmart-frontend` (Public client for React app)
-   - `trustmart-backend` (Confidential client for backend services)
+   - `frontend` (Public client for React app)
+   - `gateaway-client` (Confidential client for backend services)
 3. Create realm roles:
    - `ADMIN` - Full access to all features
    - `CLIENT` - Can browse products and manage own orders
@@ -492,7 +500,7 @@ mvn clean package -DskipTests
 #### Frontend
 
 ```bash
-cd trustmart-frontend
+cd frontend
 npm install
 npm run build
 cd ..
@@ -510,11 +518,12 @@ This is the recommended way to run all services together:
 # Ensure Keycloak is running first
 docker start keycloak-postgres keycloak
 
-# Start all TrustMart services
+# Start all ecommerce services
 docker-compose up -d
 ```
 
 This will start:
+
 - MySQL database (port 3307)
 - Discovery Service (port 8761)
 - Gateway Service (port 8083)
@@ -527,47 +536,53 @@ This will start:
 Start each service in the following order:
 
 #### 1. Start Keycloak
+
 ```bash
 docker start keycloak-postgres keycloak
 ```
 
 #### 2. Start Discovery Service
+
 ```bash
 cd discovery-service
 mvn spring-boot:run
 ```
 
 #### 3. Start Gateway Service
+
 ```bash
 cd gateway-service
 mvn spring-boot:run
 ```
 
 #### 4. Start Product Service
+
 ```bash
 cd product-service
 mvn spring-boot:run
 ```
 
 #### 5. Start Command Service
+
 ```bash
 cd command-service
 mvn spring-boot:run
 ```
 
 #### 6. Start Frontend
+
 ```bash
-cd trustmart-frontend
+cd frontend
 npm run dev
 ```
 
 ### Accessing the Application
 
-| Service | URL |
-|---------|-----|
-| Frontend | http://localhost:8084 |
-| API Gateway | http://localhost:8083 |
-| Eureka Dashboard | http://localhost:8761 |
+| Service                | URL                         |
+| ---------------------- | --------------------------- |
+| Frontend               | http://localhost:8084       |
+| API Gateway            | http://localhost:8083       |
+| Eureka Dashboard       | http://localhost:8761       |
 | Keycloak Admin Console | http://localhost:8080/admin |
 
 ---
@@ -590,16 +605,16 @@ Authorization: Bearer <jwt_token>
 
 Base Path: `/api/products`
 
-| Method | Endpoint | Description | Required Role | Request Body | Response |
-|--------|----------|-------------|---------------|--------------|----------|
-| GET | `/api/products` | Get all products | Any authenticated | - | `ProductResponse[]` |
-| GET | `/api/products/{productId}` | Get product by ID | Any authenticated | - | `ProductResponse` |
-| POST | `/api/products` | Create new product | ADMIN | `ProductRequest` | `ProductResponse` |
-| PUT | `/api/products/{productId}` | Update product | ADMIN | `ProductRequest` | `ProductResponse` |
-| DELETE | `/api/products/{productId}` | Delete product | ADMIN | - | `204 No Content` |
-| GET | `/api/products/{productId}/check-stock` | Check stock availability | Any authenticated | Query: `quantity` | `boolean` |
-| POST | `/api/products/reduce-stock` | Reduce stock (internal) | Service only | `StockUpdateRequest[]` | `200 OK` |
-| POST | `/api/products/restore-stock` | Restore stock (internal) | Service only | `StockUpdateRequest[]` | `200 OK` |
+| Method | Endpoint                                | Description              | Required Role     | Request Body           | Response            |
+| ------ | --------------------------------------- | ------------------------ | ----------------- | ---------------------- | ------------------- |
+| GET    | `/api/products`                         | Get all products         | Any authenticated | -                      | `ProductResponse[]` |
+| GET    | `/api/products/{productId}`             | Get product by ID        | Any authenticated | -                      | `ProductResponse`   |
+| POST   | `/api/products`                         | Create new product       | ADMIN             | `ProductRequest`       | `ProductResponse`   |
+| PUT    | `/api/products/{productId}`             | Update product           | ADMIN             | `ProductRequest`       | `ProductResponse`   |
+| DELETE | `/api/products/{productId}`             | Delete product           | ADMIN             | -                      | `204 No Content`    |
+| GET    | `/api/products/{productId}/check-stock` | Check stock availability | Any authenticated | Query: `quantity`      | `boolean`           |
+| POST   | `/api/products/reduce-stock`            | Reduce stock (internal)  | Service only      | `StockUpdateRequest[]` | `200 OK`            |
+| POST   | `/api/products/restore-stock`           | Restore stock (internal) | Service only      | `StockUpdateRequest[]` | `200 OK`            |
 
 #### ProductRequest Schema
 
@@ -641,15 +656,15 @@ Base Path: `/api/products`
 
 Base Path: `/api/commands`
 
-| Method | Endpoint | Description | Required Role | Request Body | Response |
-|--------|----------|-------------|---------------|--------------|----------|
-| GET | `/api/commands` | Get all commands | ADMIN (all) / CLIENT (own) | Query: `status` (optional) | `CommandResponse[]` |
-| GET | `/api/commands/{commandId}` | Get command by ID | ADMIN / Owner | - | `CommandResponse` |
-| POST | `/api/commands` | Create new command | CLIENT | `CommandRequest` | `CommandResponse` |
-| PUT | `/api/commands/{commandId}` | Update command | ADMIN / Owner | `CommandRequest` | `CommandResponse` |
-| PATCH | `/api/commands/{commandId}/status` | Update command status | ADMIN only | `CommandStatusUpdateRequest` | `CommandResponse` |
-| POST | `/api/commands/{commandId}/cancel` | Cancel command | ADMIN / Owner | - | `200 OK` |
-| DELETE | `/api/commands/{commandId}` | Delete command | ADMIN only | - | `204 No Content` |
+| Method | Endpoint                           | Description           | Required Role              | Request Body                 | Response            |
+| ------ | ---------------------------------- | --------------------- | -------------------------- | ---------------------------- | ------------------- |
+| GET    | `/api/commands`                    | Get all commands      | ADMIN (all) / CLIENT (own) | Query: `status` (optional)   | `CommandResponse[]` |
+| GET    | `/api/commands/{commandId}`        | Get command by ID     | ADMIN / Owner              | -                            | `CommandResponse`   |
+| POST   | `/api/commands`                    | Create new command    | CLIENT                     | `CommandRequest`             | `CommandResponse`   |
+| PUT    | `/api/commands/{commandId}`        | Update command        | ADMIN / Owner              | `CommandRequest`             | `CommandResponse`   |
+| PATCH  | `/api/commands/{commandId}/status` | Update command status | ADMIN only                 | `CommandStatusUpdateRequest` | `CommandResponse`   |
+| POST   | `/api/commands/{commandId}/cancel` | Cancel command        | ADMIN / Owner              | -                            | `200 OK`            |
+| DELETE | `/api/commands/{commandId}`        | Delete command        | ADMIN only                 | -                            | `204 No Content`    |
 
 #### CommandRequest Schema
 
@@ -699,6 +714,7 @@ PENDING --> CONFIRMED --> PROCESSING --> SHIPPED --> DELIVERED
 ```
 
 Valid status transitions:
+
 - PENDING -> CONFIRMED, CANCELLED
 - CONFIRMED -> PROCESSING, CANCELLED
 - PROCESSING -> SHIPPED, CANCELLED
@@ -712,14 +728,14 @@ Valid status transitions:
 
 Base Path: `/api/users`
 
-| Method | Endpoint | Description | Required Role | Request Body | Response |
-|--------|----------|-------------|---------------|--------------|----------|
-| GET | `/api/users` | Get all client users | ADMIN | - | `UserResponse[]` |
-| GET | `/api/users/{userId}` | Get user by ID | ADMIN | - | `UserResponse` |
-| POST | `/api/users` | Create new user | ADMIN | `CreateUserRequest` | `UserResponse` |
-| PUT | `/api/users/{userId}` | Update user | ADMIN | `UpdateUserRequest` | `UserResponse` |
-| PATCH | `/api/users/{userId}/enabled` | Enable/disable user | ADMIN | `EnableUserRequest` | `UserResponse` |
-| DELETE | `/api/users/{userId}` | Delete user | ADMIN | - | `204 No Content` |
+| Method | Endpoint                      | Description          | Required Role | Request Body        | Response         |
+| ------ | ----------------------------- | -------------------- | ------------- | ------------------- | ---------------- |
+| GET    | `/api/users`                  | Get all client users | ADMIN         | -                   | `UserResponse[]` |
+| GET    | `/api/users/{userId}`         | Get user by ID       | ADMIN         | -                   | `UserResponse`   |
+| POST   | `/api/users`                  | Create new user      | ADMIN         | `CreateUserRequest` | `UserResponse`   |
+| PUT    | `/api/users/{userId}`         | Update user          | ADMIN         | `UpdateUserRequest` | `UserResponse`   |
+| PATCH  | `/api/users/{userId}/enabled` | Enable/disable user  | ADMIN         | `EnableUserRequest` | `UserResponse`   |
+| DELETE | `/api/users/{userId}`         | Delete user          | ADMIN         | -                   | `204 No Content` |
 
 #### CreateUserRequest Schema
 
@@ -739,9 +755,9 @@ Base Path: `/api/users`
 
 Base Path: `/api/auth`
 
-| Method | Endpoint | Description | Required Role | Request Body | Response |
-|--------|----------|-------------|---------------|--------------|----------|
-| POST | `/api/auth/register` | Register new client user | Public | `CreateUserRequest` | `UserResponse` |
+| Method | Endpoint             | Description              | Required Role | Request Body        | Response       |
+| ------ | -------------------- | ------------------------ | ------------- | ------------------- | -------------- |
+| POST   | `/api/auth/register` | Register new client user | Public        | `CreateUserRequest` | `UserResponse` |
 
 ---
 
@@ -753,18 +769,20 @@ The application uses Keycloak for identity and access management with OAuth2/Ope
 
 #### Realm Configuration
 
-- **Realm Name**: trustmart
+- **Realm Name**: ecommerce
 - **Token Lifespan**: Configure as needed (recommended: 5 minutes for access token, 30 minutes for refresh token)
 
 #### Client Configuration
 
-**trustmart-frontend (Public Client)**
+**frontend (Public Client)**
+
 - Client Protocol: openid-connect
 - Access Type: public
-- Valid Redirect URIs: http://localhost:8084/*
+- Valid Redirect URIs: http://localhost:8084/\*
 - Web Origins: http://localhost:8084
 
-**trustmart-backend (Confidential Client)**
+**geteaway client (Confidential Client)**
+
 - Client Protocol: openid-connect
 - Access Type: confidential
 - Service Accounts Enabled: Yes
@@ -772,10 +790,10 @@ The application uses Keycloak for identity and access management with OAuth2/Ope
 
 #### Roles
 
-| Role | Description | Permissions |
-|------|-------------|-------------|
-| ADMIN | Administrator | Full access to products, orders, and user management |
-| CLIENT | Customer | Browse products, create and manage own orders |
+| Role   | Description   | Permissions                                          |
+| ------ | ------------- | ---------------------------------------------------- |
+| ADMIN  | Administrator | Full access to products, orders, and user management |
+| CLIENT | Customer      | Browse products, create and manage own orders        |
 
 ---
 
@@ -786,28 +804,33 @@ The project includes a comprehensive GitHub Actions CI/CD pipeline with security
 ### Pipeline Stages
 
 1. **SonarQube Analysis**
+
    - Static code analysis
    - Code quality metrics
    - Security vulnerability detection
    - Code coverage reporting
 
 2. **OWASP Dependency Check**
+
    - Scans all dependencies for known vulnerabilities (CVEs)
    - Generates HTML, JSON, and SARIF reports
    - Fails build on CVSS score >= 7 (configurable)
 
 3. **Build Application**
+
    - Compiles all backend services
    - Builds frontend application
    - Creates JAR artifacts
 
 4. **Container Security Scan (Trivy)**
+
    - Scans Docker images for vulnerabilities
    - Checks for OS package vulnerabilities
    - Detects secrets in images
    - Generates detailed reports
 
 5. **Security Summary**
+
    - Aggregates all security scan results
    - Generates pipeline summary
 
@@ -818,6 +841,7 @@ The project includes a comprehensive GitHub Actions CI/CD pipeline with security
 ### Running the Pipeline
 
 The pipeline runs automatically on:
+
 - Push to main, master, or develop branches
 - Pull requests to main or master branches
 - Manual trigger via GitHub Actions UI
@@ -826,12 +850,12 @@ The pipeline runs automatically on:
 
 Configure these in your GitHub repository settings:
 
-| Secret | Description |
-|--------|-------------|
-| `SONAR_TOKEN` | SonarQube authentication token |
-| `SONAR_HOST_URL` | SonarQube server URL |
-| `DOCKERHUB_USERNAME` | Docker Hub username |
-| `DOCKERHUB_TOKEN` | Docker Hub access token |
+| Secret               | Description                    |
+| -------------------- | ------------------------------ |
+| `SONAR_TOKEN`        | SonarQube authentication token |
+| `SONAR_HOST_URL`     | SonarQube server URL           |
+| `DOCKERHUB_USERNAME` | Docker Hub username            |
+| `DOCKERHUB_TOKEN`    | Docker Hub access token        |
 
 ---
 
@@ -841,16 +865,17 @@ Configure these in your GitHub repository settings:
 
 All services generate structured logs stored in the `/logs` directory:
 
-| Log File | Description |
-|----------|-------------|
+| Log File               | Description                                    |
+| ---------------------- | ---------------------------------------------- |
 | `{service}-access.log` | HTTP access logs with request/response details |
-| `{service}-error.log` | Error and exception logs |
-| `{service}-health.log` | Health check logs |
-| `{service}.log` | General application logs |
+| `{service}-error.log`  | Error and exception logs                       |
+| `{service}-health.log` | Health check logs                              |
+| `{service}.log`        | General application logs                       |
 
 ### Log Format
 
 Logs include:
+
 - Timestamp
 - Log level
 - Service name
@@ -862,39 +887,41 @@ Logs include:
 
 ```bash
 # View logs for a specific service
-docker logs trustmart-product
+docker logs ecom-product
 
 # View application logs inside container
-docker exec -it trustmart-product cat /app/logs/product-service.log
+docker exec -it ecom-product cat /app/logs/product-service.log
 
 # Follow logs in real-time
-docker logs -f trustmart-gateway
+docker logs -f ecom-gateway
 ```
 
 ### Health Endpoints
 
 All services expose health endpoints via Spring Actuator:
 
-| Endpoint | Description |
-|----------|-------------|
-| `/actuator/health` | Service health status |
-| `/actuator/info` | Service information |
-| `/actuator/metrics` | Performance metrics |
+| Endpoint            | Description           |
+| ------------------- | --------------------- |
+| `/actuator/health`  | Service health status |
+| `/actuator/info`    | Service information   |
+| `/actuator/metrics` | Performance metrics   |
 
 ---
 
 ## Screenshots
 
-The following screenshots demonstrate the key features and interfaces of the TrustMart application.
+The following screenshots demonstrate the key features and interfaces of the ecom application.
 
 ### Welcome Page
+
 ![Welcome Page](docs/welcome_page.png)
 
-The landing page of the TrustMart application displaying the main navigation and welcome message. Users can navigate to products, their cart, or login to access more features.
+The landing page of the ecom application displaying the main navigation and welcome message. Users can navigate to products, their cart, or login to access more features.
 
 ---
 
 ### Login Page
+
 ![Login Page](docs/login_page.png)
 
 The Keycloak-powered login page where users authenticate using their credentials. Supports both ADMIN and CLIENT role logins with secure OAuth2/OIDC authentication.
@@ -902,6 +929,7 @@ The Keycloak-powered login page where users authenticate using their credentials
 ---
 
 ### Products List
+
 ![Products List](docs/products_list.png)
 
 The product catalog page showing all available products with their names, descriptions, prices, and stock quantities. Administrators can add, edit, or delete products from this view.
@@ -909,6 +937,7 @@ The product catalog page showing all available products with their names, descri
 ---
 
 ### Adding a Product
+
 ![Adding Product](docs/adding_product.png)
 
 The product creation form accessible to administrators. Allows entering product name, description, price, and initial stock quantity with validation.
@@ -916,6 +945,7 @@ The product creation form accessible to administrators. Allows entering product 
 ---
 
 ### Editing a Product
+
 ![Editing Product](docs/editing_product.png)
 
 The product edit modal pre-populated with existing product data. Administrators can modify any product attributes and save changes.
@@ -923,6 +953,7 @@ The product edit modal pre-populated with existing product data. Administrators 
 ---
 
 ### Deleting a Product
+
 ![Deleting Product](docs/deleting_product.png)
 
 Confirmation dialog when deleting a product. Ensures accidental deletions are prevented with a clear confirmation message.
@@ -930,6 +961,7 @@ Confirmation dialog when deleting a product. Ensures accidental deletions are pr
 ---
 
 ### Shopping Cart
+
 ![Shopping Cart](docs/cart.png)
 
 The shopping cart interface showing selected products, quantities, unit prices, and total amount. Users can adjust quantities or remove items before proceeding to checkout.
@@ -937,6 +969,7 @@ The shopping cart interface showing selected products, quantities, unit prices, 
 ---
 
 ### Making a New Order
+
 ![Making New Order](docs/making_new_order.png)
 
 The order placement interface where users can review their cart contents and confirm the order. Shows order summary with all items and total amount.
@@ -944,6 +977,7 @@ The order placement interface where users can review their cart contents and con
 ---
 
 ### Client Orders List
+
 ![Client Orders List](docs/client_orders_list.png)
 
 The order history view for clients showing their personal orders with status, date, items, and total amount. Clients can only see their own orders.
@@ -951,6 +985,7 @@ The order history view for clients showing their personal orders with status, da
 ---
 
 ### Client Canceling Order
+
 ![Client Canceling Order](docs/client_canceling_order.png)
 
 The order cancellation confirmation dialog. Clients can cancel their pending orders, which triggers stock restoration.
@@ -958,6 +993,7 @@ The order cancellation confirmation dialog. Clients can cancel their pending ord
 ---
 
 ### List of Orders (Admin View)
+
 ![List of Orders](docs/list_of_orders.png)
 
 The administrative view of all orders in the system. Shows all orders from all users with filtering options by status.
@@ -965,6 +1001,7 @@ The administrative view of all orders in the system. Shows all orders from all u
 ---
 
 ### Changing Order Status
+
 ![Changing Order Status](docs/changing_product_status.png)
 
 The order status management interface for administrators. Allows updating order status through the valid workflow (PENDING to CONFIRMED to PROCESSING to SHIPPED to DELIVERED).
@@ -972,6 +1009,7 @@ The order status management interface for administrators. Allows updating order 
 ---
 
 ### List of Clients
+
 ![List of Clients](docs/list_of_clients.png)
 
 The user management interface showing all registered client users. Displays username, email, name, and account status.
@@ -979,6 +1017,7 @@ The user management interface showing all registered client users. Displays user
 ---
 
 ### Delete Client
+
 ![Delete Client](docs/delete_client.png)
 
 Confirmation dialog when deleting a client account. Administrators can remove user accounts from the system.
@@ -986,6 +1025,7 @@ Confirmation dialog when deleting a client account. Administrators can remove us
 ---
 
 ### DevSecOps Pipeline Success
+
 ![DevSecOps Pipeline](docs/secdevops_pipeline_success.png)
 
 GitHub Actions pipeline showing successful completion of all security scans including SonarQube analysis, OWASP dependency check, and Trivy container scanning.
@@ -993,6 +1033,7 @@ GitHub Actions pipeline showing successful completion of all security scans incl
 ---
 
 ### Docker Hub Containers
+
 ![Docker Hub Containers](docs/dockerhub_containers_pushed.png)
 
 Docker Hub repository showing all pushed container images for the microservices after successful pipeline execution.
@@ -1000,9 +1041,10 @@ Docker Hub repository showing all pushed container images for the microservices 
 ---
 
 ### Services Running Locally on Docker
+
 ![Services Running Locally](docs/services_running_locally_on_docker.png)
 
-Docker Desktop showing all TrustMart microservices running locally in containers. Displays the status of MySQL, Discovery Service, Gateway Service, Product Service, Command Service, and Frontend containers.
+Docker Desktop showing all ecom microservices running locally in containers. Displays the status of MySQL, Discovery Service, Gateway Service, Product Service, Command Service, and Frontend containers.
 
 ---
 
@@ -1067,7 +1109,7 @@ microservices-ecom-app/
 |   +-- Dockerfile
 |   +-- pom.xml
 |
-+-- trustmart-frontend/                # React frontend
++-- frontend/                # React frontend
 |   +-- src/
 |   |   +-- components/                # Reusable UI components
 |   |   +-- contexts/                  # React contexts
@@ -1101,28 +1143,28 @@ microservices-ecom-app/
 
 ### Gateway Service
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `SPRING_PROFILES_ACTIVE` | Active Spring profile | - |
-| `EUREKA_CLIENT_SERVICEURL_DEFAULTZONE` | Eureka server URL | http://localhost:8761/eureka/ |
-| `SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI` | Keycloak issuer URI | http://localhost:8080/realms/trustmart |
-| `KEYCLOAK_AUTH_SERVER_URL` | Keycloak server URL | http://localhost:8080 |
-| `KEYCLOAK_REALM` | Keycloak realm name | trustmart |
-| `KEYCLOAK_ADMIN_USERNAME` | Keycloak admin username | admin |
-| `KEYCLOAK_ADMIN_PASSWORD` | Keycloak admin password | admin |
-| `GATEWAY_SECRET` | Secret for internal service auth | TrustMartGatewaySecretKey2024 |
-| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins | http://localhost:8084 |
+| Variable                                               | Description                      | Default                                |
+| ------------------------------------------------------ | -------------------------------- | -------------------------------------- |
+| `SPRING_PROFILES_ACTIVE`                               | Active Spring profile            | -                                      |
+| `EUREKA_CLIENT_SERVICEURL_DEFAULTZONE`                 | Eureka server URL                | http://localhost:8761/eureka/          |
+| `SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI` | Keycloak issuer URI              | http://localhost:8080/realms/ecommerce |
+| `KEYCLOAK_AUTH_SERVER_URL`                             | Keycloak server URL              | http://localhost:8080                  |
+| `KEYCLOAK_REALM`                                       | Keycloak realm name              | ecommerce                              |
+| `KEYCLOAK_ADMIN_USERNAME`                              | Keycloak admin username          | admin                                  |
+| `KEYCLOAK_ADMIN_PASSWORD`                              | Keycloak admin password          | admin                                  |
+| `GATEWAY_SECRET`                                       | Secret for internal service auth | ecommerceGatewaySecretKey2024          |
+| `CORS_ALLOWED_ORIGINS`                                 | Allowed CORS origins             | http://localhost:8084                  |
 
 ### Product and Command Services
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `SPRING_PROFILES_ACTIVE` | Active Spring profile | - |
-| `EUREKA_CLIENT_SERVICEURL_DEFAULTZONE` | Eureka server URL | http://localhost:8761/eureka/ |
-| `SPRING_DATASOURCE_URL` | MySQL connection URL | jdbc:mysql://localhost:3306/... |
-| `SPRING_DATASOURCE_USERNAME` | Database username | root |
-| `SPRING_DATASOURCE_PASSWORD` | Database password | root |
-| `GATEWAY_SECRET` | Secret for gateway auth validation | TrustMartGatewaySecretKey2024 |
+| Variable                               | Description                        | Default                         |
+| -------------------------------------- | ---------------------------------- | ------------------------------- |
+| `SPRING_PROFILES_ACTIVE`               | Active Spring profile              | -                               |
+| `EUREKA_CLIENT_SERVICEURL_DEFAULTZONE` | Eureka server URL                  | http://localhost:8761/eureka/   |
+| `SPRING_DATASOURCE_URL`                | MySQL connection URL               | jdbc:mysql://localhost:3306/... |
+| `SPRING_DATASOURCE_USERNAME`           | Database username                  | root                            |
+| `SPRING_DATASOURCE_PASSWORD`           | Database password                  | root                            |
+| `GATEWAY_SECRET`                       | Secret for gateway auth validation | ecommerceGatewaySecretKey2024   |
 
 ---
 
@@ -1135,6 +1177,7 @@ microservices-ecom-app/
 **Symptom**: Services fail to appear in Eureka dashboard
 
 **Solution**:
+
 - Ensure Discovery Service is running first
 - Check Eureka URL configuration in service properties
 - Verify network connectivity between services
@@ -1144,6 +1187,7 @@ microservices-ecom-app/
 **Symptom**: Browser console shows CORS policy errors
 
 **Solution**:
+
 - Verify `cors.allowed-origins` includes frontend URL
 - Ensure Gateway CORS configuration is correct
 - Check that preflight OPTIONS requests are allowed
@@ -1153,6 +1197,7 @@ microservices-ecom-app/
 **Symptom**: 401 Unauthorized errors on API calls
 
 **Solution**:
+
 - Verify Keycloak is running and accessible
 - Check JWT issuer URI matches Keycloak configuration
 - Ensure tokens are not expired
@@ -1163,6 +1208,7 @@ microservices-ecom-app/
 **Symptom**: Services fail to start with database errors
 
 **Solution**:
+
 - Ensure MySQL is running and accessible
 - Verify database credentials
 - Check that databases (productdb, commanddb) exist
@@ -1173,6 +1219,7 @@ microservices-ecom-app/
 **Symptom**: Command Service cannot reach Product Service
 
 **Solution**:
+
 - Verify both services are registered with Eureka
 - Check Feign client configuration
 - Ensure service names match Eureka registration
@@ -1186,7 +1233,7 @@ docker-compose logs -f product-service
 docker-compose logs -f command-service
 
 # Application logs in container
-docker exec -it trustmart-gateway ls /app/logs
+docker exec -it ecommerce-gateway ls /app/logs
 ```
 
 ### Restarting Services
@@ -1238,4 +1285,3 @@ This project is licensed under the MIT License. See the LICENSE file for details
 - Keycloak team for the identity management solution
 - OWASP for dependency check tools
 - Aqua Security for Trivy container scanner
-

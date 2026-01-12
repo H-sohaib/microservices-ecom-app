@@ -64,7 +64,7 @@ export default function Index() {
           <div className="max-w-3xl mx-auto text-center animate-fade-in">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6">
               <Sparkles className="h-4 w-4" />
-              <span className="text-sm font-medium">Welcome to TrustMart</span>
+              <span className="text-sm font-medium">Welcome to E-Commerce</span>
             </div>
 
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
