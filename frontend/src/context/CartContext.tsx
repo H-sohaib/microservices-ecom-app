@@ -43,9 +43,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         return prev.map((item) =>
           item.product.productId === product.productId
             ? {
-                ...item,
-                quantity: Math.min(item.quantity + quantity, product.stock),
-              }
+              ...item,
+              quantity: Math.min(item.quantity + quantity, product.stock),
+            }
             : item
         );
       }

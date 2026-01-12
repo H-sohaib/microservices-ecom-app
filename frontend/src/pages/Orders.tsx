@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { ClipboardList, Filter, Plus, LogIn } from 'lucide-react';
+import { ClipboardList, Filter, Plus, LogIn, ArrowUpDown, Calendar, DollarSign } from 'lucide-react';
 import { commandApi, productApi, CommandResponse, CommandStatus, CommandItemRequest } from '@/lib/api';
+import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/context/AuthContext';
 import { OrderCard } from '@/components/orders/OrderCard';
 import { DeleteOrderDialog } from '@/components/orders/DeleteOrderDialog';
@@ -30,10 +31,18 @@ const statusOptions: (CommandStatus | 'ALL')[] = [
   'CANCELLED',
 ];
 
+const sortOptions = [
+  { value: 'newest', label: 'Newest First', icon: Calendar },
+  { value: 'oldest', label: 'Oldest First', icon: Calendar },
+  { value: 'price-high', label: 'Price: High to Low', icon: DollarSign },
+  { value: 'price-low', label: 'Price: Low to High', icon: DollarSign },
+];
+
 export default function Orders() {
   const queryClient = useQueryClient();
   const { isAuthenticated, isLoading: authLoading, isAdmin, login } = useAuth();
   const [statusFilter, setStatusFilter] = useState<CommandStatus | 'ALL'>('ALL');
+  const [sortBy, setSortBy] = useState<string>('newest');
   const [deleteOrder, setDeleteOrder] = useState<CommandResponse | null>(null);
   const [editOrder, setEditOrder] = useState<CommandResponse | null>(null);
 
@@ -140,48 +149,101 @@ export default function Orders() {
   const isLoading = ordersLoading || productsLoading;
   const error = ordersError || productsError;
 
+  const sortedOrders = useMemo(() => {
+    if (!orders) return [];
+    const sorted = [...orders];
+    switch (sortBy) {
+      case 'newest':
+        return sorted.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+      case 'oldest':
+        return sorted.sort((a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime());
+      case 'price-high':
+        return sorted.sort((a, b) => (b.totalAmount || 0) - (a.totalAmount || 0));
+      case 'price-low':
+        return sorted.sort((a, b) => (a.totalAmount || 0) - (b.totalAmount || 0));
+      default:
+        return sorted;
+    }
+  }, [orders, sortBy]);
+
   if (isLoading) return <PageLoader />;
   if (error) return <ErrorDisplay error={error as Error} onRetry={refetchOrders} />;
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground">
-            {isAdmin ? 'All Orders' : 'My Orders'}
-          </h1>
-          <p className="text-muted-foreground">
-            {isAdmin ? 'Manage and track all customer orders' : 'View and manage your orders'}
-          </p>
-        </div>
+      {/* Header Section */}
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-primary/10">
+              <ClipboardList className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground">
+                {isAdmin ? 'All Orders' : 'My Orders'}
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                {isAdmin ? 'Manage and track all customer orders' : 'View and manage your orders'}
+              </p>
+            </div>
+          </div>
 
-        <div className="flex items-center gap-3">
           {!isAdmin && (
             <Link to="/new-order">
-              <Button className="gap-2 bg-gradient-primary hover:opacity-90">
+              <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto">
                 <Plus className="h-4 w-4" />
                 New Order
               </Button>
             </Link>
           )}
+        </div>
 
-          <div className="flex items-center gap-2">
-            <Filter className="h-4 w-4 text-muted-foreground" />
-            <Select
-              value={statusFilter}
-              onValueChange={(value) => setStatusFilter(value as CommandStatus | 'ALL')}
-            >
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Filter by status" />
-              </SelectTrigger>
-              <SelectContent>
-                {statusOptions.map((status) => (
-                  <SelectItem key={status} value={status}>
-                    {status === 'ALL' ? 'All Orders' : status.charAt(0) + status.slice(1).toLowerCase()}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+        {/* Filters and Sorting Row */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 p-4 bg-muted/30 rounded-lg border">
+          <div className="flex items-center gap-4 flex-1 flex-wrap">
+            {orders && orders.length > 0 && (
+              <Badge variant="secondary" className="gap-1">
+                <ClipboardList className="h-3 w-3" />
+                {orders.length} {orders.length === 1 ? 'order' : 'orders'}
+              </Badge>
+            )}
+          </div>
+
+          <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-center gap-2">
+              <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-[160px] h-9">
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  {sortOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Filter className="h-4 w-4 text-muted-foreground" />
+              <Select
+                value={statusFilter}
+                onValueChange={(value) => setStatusFilter(value as CommandStatus | 'ALL')}
+              >
+                <SelectTrigger className="w-[160px] h-9">
+                  <SelectValue placeholder="Filter by status" />
+                </SelectTrigger>
+                <SelectContent>
+                  {statusOptions.map((status) => (
+                    <SelectItem key={status} value={status}>
+                      {status === 'ALL' ? 'All Statuses' : status.charAt(0) + status.slice(1).toLowerCase()}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
       </div>
@@ -213,12 +275,12 @@ export default function Orders() {
           }
         />
       ) : (
-        <div className="space-y-4">
-          {orders.map((order, index) => (
+        <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-5">
+          {sortedOrders.map((order, index) => (
             <div
               key={order.commandId}
               className="animate-slide-up"
-              style={{ animationDelay: `${index * 50}ms` }}
+              style={{ animationDelay: `${Math.min(index, 10) * 30}ms` }}
             >
               <OrderCard
                 order={order}

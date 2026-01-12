@@ -98,7 +98,7 @@ export function ProductCard({ product, onEdit, onDelete, showActions = true }: P
           <ShoppingCart className="h-4 w-4" />
           Add to Cart
         </Button>
-        
+
         {showActions && (
           <div className="flex gap-1">
             {onEdit && (

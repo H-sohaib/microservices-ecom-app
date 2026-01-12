@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Plus, Minus, Trash2, ShoppingBag, ArrowLeft, Loader2, CheckCircle, Package, LogIn } from 'lucide-react';
+import { Plus, Minus, Trash2, ShoppingBag, ArrowLeft, Loader2, CheckCircle, Package, LogIn, DollarSign, Box } from 'lucide-react';
 import { productApi, commandApi, ProductResponse, CommandItemRequest } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -181,35 +181,48 @@ export default function NewOrder() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground">
-            Create New Order
-          </h1>
-          <p className="text-muted-foreground">
-            Select products and quantities to create a new command
-          </p>
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b">
+        <div className="flex items-center gap-3">
+          <Link to="/orders">
+            <Button variant="ghost" size="icon" className="h-9 w-9">
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+          </Link>
+          <div>
+            <h1 className="font-display text-xl md:text-2xl font-bold text-foreground">
+              Create New Order
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Select products to add to your order
+            </p>
+          </div>
         </div>
-        <Link to="/orders">
-          <Button variant="outline" className="gap-2">
-            <ArrowLeft className="h-4 w-4" />
-            Back to Orders
-          </Button>
-        </Link>
+
+        {totalItems > 0 && (
+          <Badge variant="secondary" className="gap-2 px-3 py-1.5">
+            <ShoppingBag className="h-3.5 w-3.5" />
+            {totalItems} items • ${totalPrice.toFixed(2)}
+          </Badge>
+        )}
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Product Selection */}
         <div className="lg:col-span-2 space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Package className="h-5 w-5" />
-                Available Products
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {!products || products.length === 0 ? (
+          <div className="flex items-center justify-between">
+            <h2 className="font-semibold text-lg flex items-center gap-2">
+              <Package className="h-5 w-5 text-primary" />
+              Available Products
+            </h2>
+            {products && (
+              <Badge variant="outline">{products.length} products</Badge>
+            )}
+          </div>
+
+          {!products || products.length === 0 ? (
+            <Card>
+              <CardContent className="py-12">
                 <EmptyState
                   icon={Package}
                   title="No products available"
@@ -220,70 +233,86 @@ export default function NewOrder() {
                     </Link>
                   }
                 />
-              ) : (
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {products.map((product) => {
-                    const inOrder = orderItems.find(i => i.product.productId === product.productId);
-                    const isOutOfStock = product.stock <= 0;
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="space-y-3">
+              {products.map((product) => {
+                const inOrder = orderItems.find(i => i.product.productId === product.productId);
+                const isOutOfStock = product.stock <= 0;
 
-                    return (
-                      <div
-                        key={product.productId}
-                        className={cn(
-                          "border rounded-lg p-4 transition-all",
-                          inOrder && "border-primary bg-primary/5",
-                          isOutOfStock && "opacity-50"
-                        )}
-                      >
-                        <div className="flex justify-between items-start mb-2">
-                          <div>
-                            <h4 className="font-medium">{product.name}</h4>
-                            <p className="text-sm text-muted-foreground">
-                              ${product.price.toFixed(2)} • Stock: {product.stock}
-                            </p>
+                return (
+                  <Card
+                    key={product.productId}
+                    className={cn(
+                      "transition-all hover:shadow-md",
+                      inOrder && "ring-2 ring-primary/50 bg-primary/5",
+                      isOutOfStock && "opacity-50"
+                    )}
+                  >
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-4">
+                        <div className="p-3 rounded-lg bg-muted">
+                          <Box className="h-6 w-6 text-muted-foreground" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <h4 className="font-medium truncate">{product.name}</h4>
+                            {isOutOfStock && (
+                              <Badge variant="destructive" className="text-xs">Out of Stock</Badge>
+                            )}
                           </div>
+                          <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground">
+                            <span className="flex items-center gap-1">
+                              <DollarSign className="h-3 w-3" />
+                              {product.price.toFixed(2)}
+                            </span>
+                            <span>•</span>
+                            <span>{product.stock} in stock</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
                           {inOrder && (
-                            <Badge variant="secondary">
-                              {inOrder.quantity} selected
+                            <Badge className="bg-primary">
+                              {inOrder.quantity}×
                             </Badge>
                           )}
+                          <Button
+                            onClick={() => addToOrder(product)}
+                            disabled={isOutOfStock}
+                            size="sm"
+                            variant={inOrder ? "secondary" : "default"}
+                            className="gap-1"
+                          >
+                            <Plus className="h-4 w-4" />
+                            Add
+                          </Button>
                         </div>
-                        <Button
-                          onClick={() => addToOrder(product)}
-                          disabled={isOutOfStock}
-                          size="sm"
-                          variant={inOrder ? "secondary" : "default"}
-                          className="w-full gap-2"
-                        >
-                          <Plus className="h-4 w-4" />
-                          {inOrder ? 'Add More' : 'Add to Order'}
-                        </Button>
                       </div>
-                    );
-                  })}
-                </div>
-              )}
-            </CardContent>
-          </Card>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* Order Summary */}
         <div className="lg:col-span-1">
-          <Card className="sticky top-24">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <ShoppingBag className="h-5 w-5" />
-                Order Summary
-                {totalItems > 0 && (
-                  <Badge variant="secondary">{totalItems} items</Badge>
-                )}
+          <Card className="sticky top-24 border-2">
+            <CardHeader className="pb-3 bg-muted/30">
+              <CardTitle className="flex items-center gap-2 text-base">
+                <ShoppingBag className="h-4 w-4 text-primary" />
+                Your Order
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 pt-4">
               {orderItems.length === 0 ? (
-                <p className="text-center text-muted-foreground py-8">
-                  No items added yet
-                </p>
+                <div className="text-center py-8">
+                  <ShoppingBag className="h-10 w-10 mx-auto text-muted-foreground/40 mb-3" />
+                  <p className="text-muted-foreground text-sm">No items added yet</p>
+                  <p className="text-xs text-muted-foreground/70 mt-1">Select products from the left</p>
+                </div>
               ) : (
                 <div className="space-y-3">
                   {orderItems.map((item) => (
