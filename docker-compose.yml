@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   # ===========================================
@@ -19,7 +19,8 @@ services:
     networks:
       - trustmart-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      test:
+        ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -47,7 +48,14 @@ services:
       - trustmart-network
       - keycloak-network
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8761/actuator/health"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "-q",
+          "--spider",
+          "http://localhost:8761/actuator/health",
+        ]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -112,7 +120,14 @@ services:
     networks:
       - trustmart-network
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8081/actuator/health"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "-q",
+          "--spider",
+          "http://localhost:8081/actuator/health",
+        ]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -146,7 +161,14 @@ services:
     networks:
       - trustmart-network
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8082/actuator/health"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "-q",
+          "--spider",
+          "http://localhost:8082/actuator/health",
+        ]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -190,4 +212,3 @@ networks:
 # ===========================================
 volumes:
   mysql_data:
-

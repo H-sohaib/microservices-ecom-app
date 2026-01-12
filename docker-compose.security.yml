@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 # Docker Compose for Local Security Scanning Tools
 # Run with: docker-compose -f docker-compose.security.yml up -d
@@ -48,4 +48,3 @@ volumes:
   sonarqube_extensions:
   sonarqube_logs:
   sonarqube_db:
-
