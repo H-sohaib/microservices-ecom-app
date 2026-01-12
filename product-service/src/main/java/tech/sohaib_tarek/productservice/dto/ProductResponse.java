@@ -1,4 +1,4 @@
-package net.anassploit.productservice.dto;
+package tech.sohaib_tarek.productservice.dto;
 
 import java.math.BigDecimal;
 

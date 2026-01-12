@@ -1,13 +1,13 @@
-package net.anassploit.productservice.service.impl;
+package tech.sohaib_tarek.productservice.service.impl;
 
-import net.anassploit.productservice.dto.ProductRequest;
-import net.anassploit.productservice.dto.ProductResponse;
-import net.anassploit.productservice.dto.StockUpdateRequest;
-import net.anassploit.productservice.entity.Product;
-import net.anassploit.productservice.exception.InsufficientStockException;
-import net.anassploit.productservice.exception.ProductNotFoundException;
-import net.anassploit.productservice.repository.ProductRepository;
-import net.anassploit.productservice.service.ProductService;
+import tech.sohaib_tarek.productservice.dto.ProductRequest;
+import tech.sohaib_tarek.productservice.dto.ProductResponse;
+import tech.sohaib_tarek.productservice.dto.StockUpdateRequest;
+import tech.sohaib_tarek.productservice.entity.Product;
+import tech.sohaib_tarek.productservice.exception.InsufficientStockException;
+import tech.sohaib_tarek.productservice.exception.ProductNotFoundException;
+import tech.sohaib_tarek.productservice.repository.ProductRepository;
+import tech.sohaib_tarek.productservice.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

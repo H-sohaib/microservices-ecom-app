@@ -1,4 +1,4 @@
-package net.anassploit.gatewayservice.dto;
+package tech.sohaib_tarek.gatewayservice.dto;
 
 public class EnableUserRequest {
   private boolean enabled;

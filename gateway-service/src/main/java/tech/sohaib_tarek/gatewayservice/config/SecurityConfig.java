@@ -1,4 +1,4 @@
-package net.anassploit.gatewayservice.config;
+package tech.sohaib_tarek.gatewayservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

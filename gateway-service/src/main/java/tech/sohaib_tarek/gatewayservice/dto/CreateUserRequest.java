@@ -1,4 +1,4 @@
-package net.anassploit.gatewayservice.dto;
+package tech.sohaib_tarek.gatewayservice.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

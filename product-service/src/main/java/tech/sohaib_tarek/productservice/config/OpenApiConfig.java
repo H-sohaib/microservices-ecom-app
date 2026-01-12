@@ -1,4 +1,4 @@
-package net.anassploit.productservice.config;
+package tech.sohaib_tarek.productservice.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

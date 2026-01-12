@@ -1,4 +1,4 @@
-package net.anassploit.productservice.exception;
+package tech.sohaib_tarek.productservice.exception;
 
 import java.time.LocalDateTime;
 import java.util.Map;

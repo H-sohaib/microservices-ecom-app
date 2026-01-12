@@ -1,9 +1,9 @@
-package net.anassploit.gatewayservice.controller;
+package tech.sohaib_tarek.gatewayservice.controller;
 
 import jakarta.validation.Valid;
-import net.anassploit.gatewayservice.dto.CreateUserRequest;
-import net.anassploit.gatewayservice.dto.UserResponse;
-import net.anassploit.gatewayservice.service.KeycloakUserService;
+import tech.sohaib_tarek.gatewayservice.dto.CreateUserRequest;
+import tech.sohaib_tarek.gatewayservice.dto.UserResponse;
+import tech.sohaib_tarek.gatewayservice.service.KeycloakUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

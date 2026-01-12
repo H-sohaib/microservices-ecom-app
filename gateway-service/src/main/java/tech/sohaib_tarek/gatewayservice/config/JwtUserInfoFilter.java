@@ -1,4 +1,4 @@
-package net.anassploit.gatewayservice.config;
+package tech.sohaib_tarek.gatewayservice.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;

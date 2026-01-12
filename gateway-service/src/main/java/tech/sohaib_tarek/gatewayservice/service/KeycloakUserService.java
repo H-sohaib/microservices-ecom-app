@@ -1,8 +1,8 @@
-package net.anassploit.gatewayservice.service;
+package tech.sohaib_tarek.gatewayservice.service;
 
-import net.anassploit.gatewayservice.dto.CreateUserRequest;
-import net.anassploit.gatewayservice.dto.UpdateUserRequest;
-import net.anassploit.gatewayservice.dto.UserResponse;
+import tech.sohaib_tarek.gatewayservice.dto.CreateUserRequest;
+import tech.sohaib_tarek.gatewayservice.dto.UpdateUserRequest;
+import tech.sohaib_tarek.gatewayservice.dto.UserResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

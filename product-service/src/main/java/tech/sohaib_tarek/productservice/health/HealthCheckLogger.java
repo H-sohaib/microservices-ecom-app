@@ -1,4 +1,4 @@
-package net.anassploit.productservice.health;
+package tech.sohaib_tarek.productservice.health;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

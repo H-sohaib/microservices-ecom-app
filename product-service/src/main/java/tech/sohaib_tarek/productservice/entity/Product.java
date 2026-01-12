@@ -1,4 +1,4 @@
-package net.anassploit.productservice.entity;
+package tech.sohaib_tarek.productservice.entity;
 
 import jakarta.persistence.*;
 

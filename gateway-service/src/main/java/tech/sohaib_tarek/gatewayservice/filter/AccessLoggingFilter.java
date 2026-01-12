@@ -1,4 +1,4 @@
-package net.anassploit.gatewayservice.filter;
+package tech.sohaib_tarek.gatewayservice.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

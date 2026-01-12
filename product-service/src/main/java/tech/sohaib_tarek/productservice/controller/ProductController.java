@@ -1,10 +1,10 @@
-package net.anassploit.productservice.controller;
+package tech.sohaib_tarek.productservice.controller;
 
 import jakarta.validation.Valid;
-import net.anassploit.productservice.dto.ProductRequest;
-import net.anassploit.productservice.dto.ProductResponse;
-import net.anassploit.productservice.dto.StockUpdateRequest;
-import net.anassploit.productservice.service.ProductService;
+import tech.sohaib_tarek.productservice.dto.ProductRequest;
+import tech.sohaib_tarek.productservice.dto.ProductResponse;
+import tech.sohaib_tarek.productservice.dto.StockUpdateRequest;
+import tech.sohaib_tarek.productservice.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

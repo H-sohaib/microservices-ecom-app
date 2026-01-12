@@ -1,4 +1,4 @@
-package net.anassploit.gatewayservice;
+package tech.sohaib_tarek.gatewayservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

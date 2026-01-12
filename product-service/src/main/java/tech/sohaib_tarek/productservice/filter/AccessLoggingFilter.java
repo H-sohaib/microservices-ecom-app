@@ -1,4 +1,4 @@
-package net.anassploit.productservice.filter;
+package tech.sohaib_tarek.productservice.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

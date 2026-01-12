@@ -1,4 +1,4 @@
-package net.anassploit.productservice.exception;
+package tech.sohaib_tarek.productservice.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;

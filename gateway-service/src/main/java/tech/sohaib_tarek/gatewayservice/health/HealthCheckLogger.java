@@ -1,4 +1,4 @@
-package net.anassploit.gatewayservice.health;
+package tech.sohaib_tarek.gatewayservice.health;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

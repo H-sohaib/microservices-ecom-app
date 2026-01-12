@@ -1,4 +1,4 @@
-package net.anassploit.productservice.config;
+package tech.sohaib_tarek.productservice.config;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;

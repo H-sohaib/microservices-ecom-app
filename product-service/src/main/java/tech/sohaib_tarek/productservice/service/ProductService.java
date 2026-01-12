@@ -1,8 +1,8 @@
-package net.anassploit.productservice.service;
+package tech.sohaib_tarek.productservice.service;
 
-import net.anassploit.productservice.dto.ProductRequest;
-import net.anassploit.productservice.dto.ProductResponse;
-import net.anassploit.productservice.dto.StockUpdateRequest;
+import tech.sohaib_tarek.productservice.dto.ProductRequest;
+import tech.sohaib_tarek.productservice.dto.ProductResponse;
+import tech.sohaib_tarek.productservice.dto.StockUpdateRequest;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package net.anassploit.discoveryservice.listener;
+package tech.sohaib_tarek.discoveryservice.listener;
 
 import com.netflix.appinfo.InstanceInfo;
 import org.slf4j.Logger;

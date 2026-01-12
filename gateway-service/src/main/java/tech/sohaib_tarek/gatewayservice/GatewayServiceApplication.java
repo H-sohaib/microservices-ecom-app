@@ -1,4 +1,4 @@
-package net.anassploit.gatewayservice;
+package tech.sohaib_tarek.gatewayservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

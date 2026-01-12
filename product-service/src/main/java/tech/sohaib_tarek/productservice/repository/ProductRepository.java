@@ -1,6 +1,6 @@
-package net.anassploit.productservice.repository;
+package tech.sohaib_tarek.productservice.repository;
 
-import net.anassploit.productservice.entity.Product;
+import tech.sohaib_tarek.productservice.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

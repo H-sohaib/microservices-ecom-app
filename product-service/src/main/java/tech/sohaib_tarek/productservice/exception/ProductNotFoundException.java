@@ -1,4 +1,4 @@
-package net.anassploit.productservice.exception;
+package tech.sohaib_tarek.productservice.exception;
 
 public class ProductNotFoundException extends RuntimeException {
 

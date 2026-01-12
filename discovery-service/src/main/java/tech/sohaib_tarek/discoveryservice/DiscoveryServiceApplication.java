@@ -1,4 +1,4 @@
-package net.anassploit.discoveryservice;
+package tech.sohaib_tarek.discoveryservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
