@@ -90,6 +90,7 @@ jobs:
             -DsuppressionFiles=owasp-suppressions.xml \
             -Dformats=HTML,JSON,SARIF \
             -DprettyPrint=true \
+            -DnvdApiKey=${{ secrets.NVD_API_KEY }} \
             --batch-mode
         continue-on-error: true
 
