@@ -888,7 +888,8 @@ All services expose health endpoints via Spring Actuator:
 The following screenshots demonstrate the key features and interfaces of the TrustMart application.
 
 ### Welcome Page
-![Welcome Page](docs/welcome_page.png)
+<img width="1918" height="962" alt="image" src="https://github.com/user-attachments/assets/4fb05867-9094-4cac-9fb5-cfdbda07181e" />
+
 
 The landing page of the TrustMart application displaying the main navigation and welcome message. Users can navigate to products, their cart, or login to access more features.
 
@@ -902,84 +903,84 @@ The Keycloak-powered login page where users authenticate using their credentials
 ---
 
 ### Products List
-![Products List](docs/products_list.png)
+<img width="1919" height="969" alt="image" src="https://github.com/user-attachments/assets/574a28b9-e917-4409-aff5-cf81a353f7e0" />
 
 The product catalog page showing all available products with their names, descriptions, prices, and stock quantities. Administrators can add, edit, or delete products from this view.
 
 ---
 
 ### Adding a Product
-![Adding Product](docs/adding_product.png)
+<img width="1919" height="973" alt="image" src="https://github.com/user-attachments/assets/6203b40b-31b3-49f0-85b8-80d51981d33f" />
 
 The product creation form accessible to administrators. Allows entering product name, description, price, and initial stock quantity with validation.
 
 ---
 
 ### Editing a Product
-![Editing Product](docs/editing_product.png)
+<img width="1919" height="972" alt="image" src="https://github.com/user-attachments/assets/c69bdfc0-abaa-4d74-8b76-6131509a68c1" />
 
 The product edit modal pre-populated with existing product data. Administrators can modify any product attributes and save changes.
 
 ---
 
 ### Deleting a Product
-![Deleting Product](docs/deleting_product.png)
+<img width="1919" height="966" alt="image" src="https://github.com/user-attachments/assets/09e9dfa6-678f-45ac-b63a-5e38fba26e90" />
 
 Confirmation dialog when deleting a product. Ensures accidental deletions are prevented with a clear confirmation message.
 
 ---
 
 ### Shopping Cart
-![Shopping Cart](docs/cart.png)
+<img width="1919" height="970" alt="image" src="https://github.com/user-attachments/assets/2bcc6167-1b6b-400a-93e7-6a5307b2a5be" />
 
 The shopping cart interface showing selected products, quantities, unit prices, and total amount. Users can adjust quantities or remove items before proceeding to checkout.
 
 ---
 
 ### Making a New Order
-![Making New Order](docs/making_new_order.png)
+<img width="1919" height="971" alt="image" src="https://github.com/user-attachments/assets/471c0242-db14-4565-84a9-364e073ce37f" />
 
 The order placement interface where users can review their cart contents and confirm the order. Shows order summary with all items and total amount.
 
 ---
 
 ### Client Orders List
-![Client Orders List](docs/client_orders_list.png)
+<img width="1919" height="969" alt="image" src="https://github.com/user-attachments/assets/1a9c2070-1111-46db-8fee-b977fc02bb5e" />
 
 The order history view for clients showing their personal orders with status, date, items, and total amount. Clients can only see their own orders.
 
----
-
-### Client Canceling Order
-![Client Canceling Order](docs/client_canceling_order.png)
-
-The order cancellation confirmation dialog. Clients can cancel their pending orders, which triggers stock restoration.
 
 ---
 
 ### List of Orders (Admin View)
-![List of Orders](docs/list_of_orders.png)
+<img width="1919" height="974" alt="image" src="https://github.com/user-attachments/assets/76221b6e-4b75-464a-b3b0-6d9fdeacabba" />
+
+
 
 The administrative view of all orders in the system. Shows all orders from all users with filtering options by status.
 
 ---
 
 ### Changing Order Status
-![Changing Order Status](docs/changing_product_status.png)
+<img width="1919" height="958" alt="image" src="https://github.com/user-attachments/assets/661fba28-00c7-45da-9eff-d4e536bdb83c" />
+
 
 The order status management interface for administrators. Allows updating order status through the valid workflow (PENDING to CONFIRMED to PROCESSING to SHIPPED to DELIVERED).
 
 ---
 
 ### List of Clients
-![List of Clients](docs/list_of_clients.png)
+<img width="1919" height="969" alt="image" src="https://github.com/user-attachments/assets/013daf88-fa05-4722-bc09-d433dab2303c" />
+
+
 
 The user management interface showing all registered client users. Displays username, email, name, and account status.
 
 ---
 
 ### Delete Client
-![Delete Client](docs/delete_client.png)
+<img width="1855" height="964" alt="image" src="https://github.com/user-attachments/assets/5e5ab2a2-03b9-451c-8cc7-1e737cbcb85c" />
+
 
 Confirmation dialog when deleting a client account. Administrators can remove user accounts from the system.
 
